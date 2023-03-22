@@ -34,9 +34,15 @@ jobs:
         | sed -e 's|",[[:space:]]*|?|g'
         | sed -e 's/new Information//g'
         | sed 's/(//g' | sed 's/)//g')
-        __STUDENT_NAME__=$(echo ${__STUDENT_INFO__} | cut -d '?' -f 1 | sed 's/"//g')
-        __STUDENT_CARNET__=$(echo ${__STUDENT_INFO__} | cut -d '?' -f 2 | sed 's/"//g')
-        __STUDENT_SECTION__=$(echo ${__STUDENT_INFO__} | cut -d '?' -f 3 | sed 's/"//g')
+        echo ${__STUDENT_INFO__}
+        __STUDENT_NAME__=$(echo ${__STUDENT_INFO__} 
+        | cut -d '?' -f 1 
+        | sed 's/"//g')
+        __STUDENT_CARNET__=$(echo ${__STUDENT_INFO__} 
+        | cut -d '?' -f 2 | sed 's/"//g')
+        __STUDENT_SECTION__=$(echo ${__STUDENT_INFO__} 
+        | cut -d '?' -f 3 
+        | sed 's/"//g')
         mv .index.html ./public/index.html
         sed -i "s/__STUDENT_NAME__/${__STUDENT_NAME__}/g" ./public/index.html
         sed -i "s/__STUDENT_CARNET__/${__STUDENT_CARNET__}/g" ./public/index.html
