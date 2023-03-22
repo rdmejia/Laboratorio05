@@ -6,6 +6,9 @@ name: .NET
 on:
   [push, fork]
 
+permissions:
+  contents: write
+
 jobs:
   build:
 
@@ -17,9 +20,17 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
+
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal --logger "html;logfilename=testResults.html"
+    
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_branch: main  # default: gh-pages
+        publish_dir: ./Laboratorio05Tests/TestResults
