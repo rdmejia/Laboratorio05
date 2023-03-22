@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tests __STUDENT_NAME__</title>
+    <script src="jquery.js"></script> 
+    <script> 
+    $(function(){
+      $("#includedContent").load("testResult.html"); 
+    });
+    </script> 
+</head>
+<body>
+    <div>
+        <table align="center" border="1" cellpadding="1" cellspacing="1" style="width:500px">
+            <tbody>
+                <tr>
+                    <td style="text-align:center"><strong>Nombre</strong></td>
+                    <td style="text-align:center"><strong>Carnet</strong></td>
+                    <td style="text-align:center"><strong>Secci&oacute;n</strong></td>
+                </tr>
+                <tr>
+                    <td style="text-align:center">__STUDENT_NAME__</td>
+                    <td style="text-align:center">__STUDENT_CARNET__</td>
+                    <td style="text-align:center">__STUDENT_SECTION__</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="includedContent"></div>
+</body>
+</html>
