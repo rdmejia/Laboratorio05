@@ -43,6 +43,7 @@ jobs:
         sed -i "s/__STUDENT_CARNET__/$__STUDENT_CARNET__/g" ./public/index.html
         sed -i "s/__STUDENT_SECTION__/$__STUDENT_SECTION__/g" ./public/index.html
         mv ./Laboratorio05Tests/TestResults/* ./public/
+        cat ./public/index.html
 
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
