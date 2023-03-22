@@ -4,27 +4,31 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tests [01;31m[KDaniel Mejia</title>
+    <script src="jquery.js"></script> 
+    <script> 
+    $(function(){
+      $("#includedContent").load("testResult.html"); 
+    });
+    </script> 
 </head>
 <body>
-    <table align="center" border="1" cellpadding="1" cellspacing="1" style="width:500px">
-        <tbody>
-            <tr>
-                <td style="text-align:center"><strong>Nombre</strong></td>
-                <td style="text-align:center"><strong>Carnet</strong></td>
-                <td style="text-align:center"><strong>Secci&oacute;n</strong></td>
-            </tr>
-            <tr>
-                <td style="text-align:center">[01;31m[KDaniel Mejia</td>
-                <td style="text-align:center">999999</td>
-                <td style="text-align:center">00[m[K</td>
-            </tr>
-        </tbody>
-    </table>
-    
-    <p>&nbsp;</p>
     <div>
-        <iframe src="testResults.html" name="testResults" allowTransparency="true" scrolling="no" frameborder="0"></iframe>
+        <table align="center" border="1" cellpadding="1" cellspacing="1" style="width:500px">
+            <tbody>
+                <tr>
+                    <td style="text-align:center"><strong>Nombre</strong></td>
+                    <td style="text-align:center"><strong>Carnet</strong></td>
+                    <td style="text-align:center"><strong>Secci&oacute;n</strong></td>
+                </tr>
+                <tr>
+                    <td style="text-align:center">[01;31m[KDaniel Mejia</td>
+                    <td style="text-align:center">999999</td>
+                    <td style="text-align:center">00[m[K</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+    <div id="includedContent"></div>
 </body>
 </html>
