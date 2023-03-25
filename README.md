@@ -1,4 +1,4 @@
-# Laboratorio 05
+# Laboratorio 04
 
 ## Introducción
 
@@ -164,7 +164,7 @@ ___
 
 ```none
 equipos = ["Alemania", "Japón", "Brazil", "México", "Inglaterra", "Italia", "Argentina", "España"]
-resultado = [["Alemania", "Japón", "Brazil", "México", "Inglaterra", "Italia", "Argentina", "España"], ["Alemania", "Brasil", "Inglaterra", "Japón"]. ["Alemania", "Brazil"], ["Alemania]]
+resultado = [["Alemania", "Japón", "Brazil", "México", "Inglaterra", "Italia", "Argentina", "España"], ["Alemania", "Japón", "Brazil", "Inglaterra"], ["Alemania", "Brazil"], ["Alemania"]]
 ```
 
 ![Ejemplo 3.3](images/EjemploTorneo.png)
