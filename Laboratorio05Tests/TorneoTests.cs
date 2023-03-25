@@ -33,9 +33,10 @@ namespace Laboratorio05Tests
 
             for (int i = 0; i < result.GetLength(0); i++)
             {
-                for (int j = 0; j < result[i].Length; i++)
+                for (int j = 0; j < result[i].Length; j++)
                 {
-                    Assert.AreEqual(dictionary[nombreEsperados[i][j]], result[i][j], $"Error en la fase {i}, el equipo en la posicion {j} no es el esperado.");
+                    var expected = dictionary[nombreEsperados[i][j]];
+                    Assert.AreEqual(expected, result[i][j], $"Error en la fase {i}, el equipo en la posicion {j} no es el esperado. Equipo del resultado: {result[i][j].GetNombre()}. Equipo esperado: {expected.GetNombre()}");
                 }
             }
         }
@@ -49,7 +50,7 @@ namespace Laboratorio05Tests
         [DataRow(7, "Si el total de equipos no es una potencia de 2, debe lanzar una excepcion")]
         [DataRow(15, "Si el total de equipos no es una potencia de 2, debe lanzar una excepcion")]
         [DataRow(13, "Si el total de equipos no es una potencia de 2, debe lanzar una excepcion")]
-        [DataRow(int.MaxValue, "Si el total de equipos no es una potencia de 2, debe lanzar una excepcion")]
+        [DataRow(1020, "Si el total de equipos no es una potencia de 2, debe lanzar una excepcion")]
         public void TorneosNoValidosTest(int cantidadEquipos, string message)
         {
             Equipo[] equipos = new Equipo[cantidadEquipos];
