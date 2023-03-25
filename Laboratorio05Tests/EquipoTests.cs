@@ -18,8 +18,9 @@
             Assert.AreEqual(nombre, equipo.GetNombre(), "El nombre del equipo no coincide");
             Assert.AreEqual(partidosGanados, equipo.GetPartidosGanados(), "Los partidos ganados por el equipo no coinciden");
             Assert.AreEqual(partidosEmpatados, equipo.GetPartidosEmpatados(), "Los partidos empatados por el equipo no coinciden");
-            Assert.AreEqual(partidosPerdidos, equipo.GetPartidosEmpatados(), "Los partidos perdidos por el equipo no coinciden");
+            Assert.AreEqual(partidosPerdidos, equipo.GetPartidosPerdidos(), "Los partidos perdidos por el equipo no coinciden");
             Assert.AreEqual(golesFavor, equipo.GetGolesFavor(), "Los goles a favor del equipo no coinciden");
+            Assert.AreEqual(golesContra, equipo.GetGolesContra(), "Los goles en contra del equipo no coinciden");
         }
 
         [TestMethod]
