@@ -11,13 +11,11 @@ namespace Laboratorio05
         private Equipo equipo1;
         private Equipo equipo2;
 
-        private Equipo? ganador;
+        private Equipo ganador;
 
         public Partido(Equipo equipo1, Equipo equipo2)
         {
-            this.equipo1 = equipo1;
-            this.equipo2 = equipo2;
-            this.ganador = null;
+            
         }
 
         public Equipo GetEquipo1()
