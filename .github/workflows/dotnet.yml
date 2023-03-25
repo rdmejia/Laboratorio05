@@ -6,6 +6,9 @@ name: .NET
 on:
   [push, fork]
 
+permissions:
+  contents: write
+
 jobs:
   build:
 
@@ -17,9 +20,33 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
+
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal --logger "html;logfilename=testResults.html"
+    
+    - name: Create index file
+      run: |
+        __STUDENT_INFO__=$(grep -iEo "new\s+Information\(.*\)" Laboratorio0*/Information.cs | sed -e 's|",[[:space:]]*|?|g' | sed -e 's/new Information//g' | sed 's/(//g' | sed 's/)//g')
+        __STUDENT_NAME__=$(echo $__STUDENT_INFO__ | cut -d '?' -f 1 | sed 's/"//g')
+        echo $__STUDENT_NAME__
+        __STUDENT_CARNET__=$(echo $__STUDENT_INFO__ | cut -d '?' -f 2 | sed 's/"//g')
+        echo $__STUDENT_CARNET__
+        __STUDENT_SECTION__=$(echo $__STUDENT_INFO__ | cut -d '?' -f 3 | sed 's/"//g')
+        echo $__STUDENT_SECTION__
+        mkdir -p public
+        mv .index.html ./public/index.html
+        sed -i "s/__STUDENT_NAME__/$__STUDENT_NAME__/g" ./public/index.html
+        sed -i "s/__STUDENT_CARNET__/$__STUDENT_CARNET__/g" ./public/index.html
+        sed -i "s/__STUDENT_SECTION__/$__STUDENT_SECTION__/g" ./public/index.html
+        mv ./Laboratorio05Tests/TestResults/* ./public/
+
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_branch: main  # default: gh-pages
+        publish_dir: ./public
