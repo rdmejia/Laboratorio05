@@ -1,5 +1,6 @@
 ﻿using Laboratorio05;
 using System;
+using System.Reflection;
 
 namespace Laboratorio05Tests
 {
@@ -90,6 +91,21 @@ namespace Laboratorio05Tests
             //VerifyEquipo(equipo2Mock);
 
             randomMock.Verify(r => r.Next(), Times.Exactly(8), "El numero aleatorio no se llamo la cantidad de veces esperada. Quizas no se resolvieron los empates");
+        }
+
+        [TestMethod]
+        public void MismoGanadorTest()
+        {
+            IRandomGenerator.RandomGenerator = (IRandomGenerator)typeof(RandomGenerator).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, new Type[] { }).Invoke(null);
+
+            Partido partido = new Partido(new Equipo("", 3, 0, 0, 0, 0), new Equipo("", 0, 0, 3, 0, 0));
+            var expected = partido.SeleccionarEquipoGanador();
+
+            for (int i = 0; i < 100; i++)
+            {
+                Assert.AreSame(expected, partido.SeleccionarEquipoGanador(), $"El partido retorno un ganador distinto luego de ${i} llamadas a SeleccionarEquipoGanador()");
+            }
+
         }
 
         private void MockEquipo(Equipo equipoMock, int pg, int pp, int pe, int gf, int gc)
