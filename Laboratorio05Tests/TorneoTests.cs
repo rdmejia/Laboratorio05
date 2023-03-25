@@ -1,4 +1,6 @@
-﻿namespace Laboratorio05Tests
+﻿using Laboratorio05;
+
+namespace Laboratorio05Tests
 {
     [TestClass]
     public class TorneoTests
@@ -59,7 +61,87 @@
 
         public static IEnumerable<object[]> GetSimpleTestData()
         {
-            yield return new object[] { new Equipo[] { new Equipo("Argentina", 3, 0, 0, 1, 0), new Equipo("Brasil", 0, 3, 0, 0, 1) }, new double[] { 1.0, -1.0 }, new string[][] { new string[] { "Argentina", "Brasil" }, new string[] { "Argentina" } } };
+            yield return new object[] {
+                new Equipo[] { new Equipo("Argentina", 3, 0, 0, 1, 0), new Equipo("Brasil", 0, 3, 0, 0, 1) },
+                new double[] { 1.0, -1.0 },
+                new string[][] { new string[] { "Argentina", "Brasil" }, new string[] { "Argentina" } }
+            };
+
+            yield return new object[] {
+                new Equipo[] { new Equipo("Bayern Munich", 3, 0, 0, 0, 0), new Equipo("PSG", 3, 0, 0, 0, 0), new Equipo("Manchester City", 3, 0, 0, 0, 0), new Equipo("Municipal", 3, 0, 0, 0, 0) },
+                new double[] { 0.0, 1.0, 1.0, 0.0, 1.0, 0.0 },
+                new string[][] { new string[] { "Bayern Munich", "PSG", "Manchester City", "Municipal" }, new string[] { "Municipal", "PSG" }, new string[] { "Municipal" } }
+            };
+
+            yield return new object[] {
+                new Equipo[] { new Equipo("Alemania", 3, 0, 0, 0, 0), new Equipo("Japón", 3, 0, 0, 0, 0), new Equipo("Brazil", 3, 0, 0, 0, 0), new Equipo("México", 3, 0, 0, 0, 0), new Equipo("Inglaterra", 3, 0, 0, 0, 0), new Equipo("Italia", 3, 0, 0, 0, 0), new Equipo("Argentina", 3, 0, 0, 0, 0), new Equipo("España", 3, 0, 0, 0, 0), },
+                new double[] { 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0 },
+                new string[][] {
+                    new string[] { "Alemania", "Japón", "Brazil", "México", "Inglaterra", "Italia", "Argentina", "España" },
+                    new string[] { "Alemania", "Japón", "Brazil", "Inglaterra" },
+                    new string[] { "Alemania", "Brazil" },
+                    new string[] { "Alemania" }
+                } };
+
+            yield return new object[] {
+                Enumerable.Range(0, 32)
+                    .Select(i => new Equipo("e" + i, 3, 0, 0, 0, 0))
+                    .ToArray(),
+                Enumerable.Range(0, (32 - 1) * 2)
+                    .Select(i => i % 2 == 0 ? 0.0d : 1.0d)
+                    .ToArray(),
+                BuildExpected(32)
+            };
+
+            yield return new object[] {
+                Enumerable.Range(0, 64)
+                    .Select(i => new Equipo("e" + i, 3, 0, 0, 0, 0))
+                    .ToArray(),
+                Enumerable.Range(0, (64 - 1) * 2)
+                    .Select(i => i % 2 == 0 ? 0.0d : 1.0d)
+                    .ToArray(),
+                BuildExpected(64)
+            };
+
+            yield return new object[] {
+                Enumerable.Range(0, 512)
+                    .Select(i => new Equipo("e" + i, 3, 0, 0, 0, 0))
+                    .ToArray(),
+                Enumerable.Range(0, (512 - 1) * 2)
+                    .Select(i => i % 2 == 0 ? 0.0d : 1.0d)
+                    .ToArray(),
+                BuildExpected(512)
+            };
+
+            yield return new object[] {
+                Enumerable.Range(0, 1024)
+                    .Select(i => new Equipo("e" + i, 3, 0, 0, 0, 0))
+                    .ToArray(),
+                Enumerable.Range(0, (1024 - 1) * 2)
+                    .Select(i => i % 2 == 0 ? 0.0d : 1.0d)
+                    .ToArray(),
+                BuildExpected(1024)
+            };
+
+            yield return new object[] {
+                Enumerable.Range(0, 4096)
+                    .Select(i => new Equipo("e" + i, 3, 0, 0, 0, 0))
+                    .ToArray(),
+                Enumerable.Range(0, (4096 - 1) * 2)
+                    .Select(i => i % 2 == 0 ? 0.0d : 1.0d)
+                    .ToArray(),
+                BuildExpected(4096)
+            };
+
+            yield return new object[] {
+                Enumerable.Range(0, 32768)
+                    .Select(i => new Equipo("e" + i, 3, 0, 0, 0, 0))
+                    .ToArray(),
+                Enumerable.Range(0, (32768 - 1) * 2)
+                    .Select(i => i % 2 == 0 ? 0.0d : 1.0d)
+                    .ToArray(),
+                BuildExpected(32768)
+            };
         }
 
         private void MockRandomNumbers(double[] randomNumbers)
@@ -81,6 +163,37 @@
             }
 
             return dictionary;
+        }
+
+        private static string[][] BuildExpected(int x)
+        {
+            int newSize = (int)Math.Log2(x) + 1;
+            string[][] result = new string[newSize][];
+
+            int[] arr = Enumerable.Range(0, x).ToArray();
+
+            int total = x;
+            int i = 0;
+
+            while (total > 0)
+            {
+                result[i] = new string[total];
+
+                for (int j = 0; j < total; j++)
+                {
+                    result[i][j] = "e" + arr[j];
+                }
+
+                for (int j = 0; j < total / 2; j++)
+                {
+                    arr[j] = arr[total - j - 1];
+                }
+
+                i++;
+                total = total / 2;
+            }
+
+            return result;
         }
     }
 }
