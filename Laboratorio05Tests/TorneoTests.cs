@@ -31,9 +31,10 @@
 
             for (int i = 0; i < result.GetLength(0); i++)
             {
-                for (int j = 0; j < result[i].Length; i++)
+                for (int j = 0; j < result[i].Length; j++)
                 {
-                    Assert.AreEqual(dictionary[nombreEsperados[i][j]], result[i][j], $"Error en la fase {i}, el equipo en la posicion {j} no es el esperado.");
+                    var expected = dictionary[nombreEsperados[i][j]];
+                    Assert.AreEqual(expected, result[i][j], $"Error en la fase {i}, el equipo en la posicion {j} no es el esperado. Equipo del resultado: {result[i][j].GetNombre()}. Equipo esperado: {expected.GetNombre()}");
                 }
             }
         }
@@ -47,7 +48,7 @@
         [DataRow(7, "Si el total de equipos no es una potencia de 2, debe lanzar una excepcion")]
         [DataRow(15, "Si el total de equipos no es una potencia de 2, debe lanzar una excepcion")]
         [DataRow(13, "Si el total de equipos no es una potencia de 2, debe lanzar una excepcion")]
-        [DataRow(int.MaxValue, "Si el total de equipos no es una potencia de 2, debe lanzar una excepcion")]
+        [DataRow(1020, "Si el total de equipos no es una potencia de 2, debe lanzar una excepcion")]
         public void TorneosNoValidosTest(int cantidadEquipos, string message)
         {
             Equipo[] equipos = new Equipo[cantidadEquipos];
@@ -59,7 +60,27 @@
 
         public static IEnumerable<object[]> GetSimpleTestData()
         {
-            yield return new object[] { new Equipo[] { new Equipo("Argentina", 3, 0, 0, 1, 0), new Equipo("Brasil", 0, 3, 0, 0, 1) }, new double[] { 1.0, -1.0 }, new string[][] { new string[] { "Argentina", "Brasil" }, new string[] { "Argentina" } } };
+            yield return new object[] { 
+                new Equipo[] { new Equipo("Argentina", 3, 0, 0, 1, 0), new Equipo("Brasil", 0, 3, 0, 0, 1) }, 
+                new double[] { 1.0, -1.0 }, 
+                new string[][] { new string[] { "Argentina", "Brasil" }, new string[] { "Argentina" } } 
+            };
+
+            yield return new object[] { 
+                new Equipo[] { new Equipo("Bayern Munich", 3, 0, 0, 0, 0), new Equipo("PSG", 3, 0, 0, 0, 0), new Equipo("Manchester City", 3, 0, 0, 0, 0), new Equipo("Municipal", 3, 0, 0, 0, 0) },
+                new double[] { 0.0, 1.0, 1.0, 0.0, 1.0, 0.0 }, 
+                new string[][] { new string[] { "Bayern Munich", "PSG", "Manchester City", "Municipal" }, new string[] { "Municipal", "PSG" }, new string[] { "Municipal" } }
+            };
+
+            yield return new object[] {
+                new Equipo[] { new Equipo("Alemania", 3, 0, 0, 0, 0), new Equipo("Japón", 3, 0, 0, 0, 0), new Equipo("Brazil", 3, 0, 0, 0, 0), new Equipo("México", 3, 0, 0, 0, 0), new Equipo("Inglaterra", 3, 0, 0, 0, 0), new Equipo("Italia", 3, 0, 0, 0, 0), new Equipo("Argentina", 3, 0, 0, 0, 0), new Equipo("España", 3, 0, 0, 0, 0), },
+                new double[] { 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0 },
+                new string[][] { 
+                    new string[] { "Alemania", "Japón", "Brazil", "México", "Inglaterra", "Italia", "Argentina", "España" },
+                    new string[] { "Alemania", "Japón", "Brazil", "Inglaterra" },
+                    new string[] { "Alemania", "Brazil" },
+                    new string[] { "Alemania" }
+                } };
         }
 
         private void MockRandomNumbers(double[] randomNumbers)
