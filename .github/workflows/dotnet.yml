@@ -26,7 +26,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal --logger "html;logfilename=testResults.html" || echo "hi"
+      run: dotnet test --no-build --verbosity normal --logger "html;logfilename=testResults.html" || __RESULT_CODE__=$?
     
     - name: Create index file
       run: |
@@ -50,3 +50,6 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_branch: main  # default: gh-pages
         publish_dir: ./public
+    
+    - name: Exit with result code
+      run: exit $__RESULT_CODE__
