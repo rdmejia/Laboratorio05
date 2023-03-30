@@ -52,4 +52,8 @@ jobs:
         publish_dir: ./public
     
     - name: Exit with result code
+      uses: actions/checkout@v1
       run: exit $__RESULT_CODE__
+    
+    - name: Print if no failure
+      run: echo "\033[0;32m100%!\033[0m"
