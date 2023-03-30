@@ -52,7 +52,6 @@ jobs:
         publish_dir: ./public
     
     - name: Exit with result code
-      uses: actions/checkout@v1
       run: exit $__RESULT_CODE__
     
     - name: Print if no failure
