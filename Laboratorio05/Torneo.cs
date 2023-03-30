@@ -17,23 +17,23 @@ namespace Laboratorio05
 
             Equipo[][] result = new Equipo[newSize][];
 
-            result[0] = copyArray(equipos, equipos.Length);
+            result[0] = copyArray(equipos);
 
             int equiposRestantes = equipos.Length;
             int fase = 1;
 
             while (equiposRestantes > 1)
             {
+                result[fase] = new Equipo[equiposRestantes / 2];
+
                 for (int i = 0; i < equiposRestantes / 2; i++)
                 {
-                    Partido partido = new Partido(equipos[i], equipos[equiposRestantes - i - 1]);
+                    Partido partido = new Partido(result[fase - 1][i], result[fase - 1][equiposRestantes - i - 1]);
                     Equipo ganador = partido.SeleccionarEquipoGanador();
-                    equipos[i] = ganador;
+                    result[fase][i] = ganador;
                 }
 
                 equiposRestantes = equiposRestantes / 2;
-                
-                result[fase] = copyArray(equipos, equiposRestantes);
 
                 fase++;
             }
@@ -48,11 +48,11 @@ namespace Laboratorio05
             return (log2 - (int)log2) == 0.0;
         }
 
-        private static Equipo[] copyArray(Equipo[] equipos, int top)
+        private static Equipo[] copyArray(Equipo[] equipos)
         {
-            Equipo[] copy = new Equipo[top];
+            Equipo[] copy = new Equipo[equipos.Length];
 
-            for (int i = 0; i < top; i++)
+            for (int i = 0; i < equipos.Length; i++)
             {
                 copy[i] = equipos[i];
             }
