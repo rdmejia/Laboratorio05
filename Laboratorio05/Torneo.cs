@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Laboratorio05
+﻿namespace Laboratorio05
 {
     public class Torneo
     {
@@ -17,7 +11,7 @@ namespace Laboratorio05
 
             Equipo[][] result = new Equipo[newSize][];
 
-            result[0] = copyArray(equipos);
+            result[0] = equipos;
 
             int equiposRestantes = equipos.Length;
             int fase = 1;
