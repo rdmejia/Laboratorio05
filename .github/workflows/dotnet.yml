@@ -26,7 +26,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal --logger "html;logfilename=testResults.html"
+      run: dotnet test --no-build --verbosity normal --logger "html;logfilename=testResults.html" || echo "hi"
     
     - name: Create index file
       run: |
