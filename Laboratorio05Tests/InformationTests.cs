@@ -11,7 +11,7 @@ namespace Laboratorio05Tests
             set { testContextInstance = value; }
         }
 
-        [TestMethod]
+        [TestMethod, Timeout(5000)]
         public void TestInformation()
         {
             var information = Information.GetInformation();

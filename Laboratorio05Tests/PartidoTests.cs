@@ -17,7 +17,7 @@ namespace Laboratorio05Tests
             IRandomGenerator.RandomGenerator = randomMock.Object;
         }
 
-        [TestMethod]
+        [TestMethod, Timeout(5000)]
         public void AsignarEquiposTest() 
         {
             Equipo e1 = new Equipo("e1", 3, 0, 0, 0, 0);
@@ -29,7 +29,7 @@ namespace Laboratorio05Tests
             Assert.AreSame(e2, partido.GetEquipo2(), "El equipo 2 no coincide con el equipo esperado");
         }
 
-        [TestMethod]
+        [TestMethod, Timeout(5000)]
         [DataRow(3, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1.0, "equipo1")]
         [DataRow(3, 0, 0, 2, 3, 0, 0, 0, 2, 3, -1.0, "equipo1")]
         [DataRow(3, 0, 0, 2, 3, 0, 0, 0, 2, 3, -0.798132, "equipo1")]
@@ -56,7 +56,7 @@ namespace Laboratorio05Tests
             randomMock.Verify(r => r.Next(), Times.Exactly(2), "El numero aleatorio debio haberse obtenido una vez por cada equipo");
         }
 
-        [TestMethod]
+        [TestMethod, Timeout(5000)]
         [DataRow(0)]
         [DataRow(0)]
         [DataRow(0)]
@@ -93,7 +93,7 @@ namespace Laboratorio05Tests
             randomMock.Verify(r => r.Next(), Times.Exactly(8), "El numero aleatorio no se llamo la cantidad de veces esperada. Quizas no se resolvieron los empates");
         }
 
-        [TestMethod]
+        [TestMethod, Timeout(5000)]
         public void MismoGanadorTest()
         {
             IRandomGenerator.RandomGenerator = (IRandomGenerator)typeof(RandomGenerator).GetConstructor(BindingFlags.NonPublic | BindingFlags.Instance, new Type[] { }).Invoke(null);

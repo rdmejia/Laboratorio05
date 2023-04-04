@@ -21,7 +21,7 @@ namespace Laboratorio05Tests
             IRandomGenerator.RandomGenerator = randomMock.Object;
         }
 
-        [TestMethod]
+        [TestMethod, Timeout(5000)]
         [DynamicData(nameof(GetSimpleTestData), DynamicDataSourceType.Method)]
         public void GanadorSimpleTest(Equipo[] equipos, double[] randomNumbers, string[][] nombreEsperados)
         {
@@ -43,7 +43,7 @@ namespace Laboratorio05Tests
             }
         }
 
-        [TestMethod]
+        [TestMethod, Timeout(5000)]
         [ExpectedException(typeof(Exception))]
         [DataRow(1, "Si el total de equipos no es mayor a 1, se debe lanzar una excepcion")]
         [DataRow(0, "Si el total de equipos no es mayor a 1, se debe lanzar una excepcion")]
