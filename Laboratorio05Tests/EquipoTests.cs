@@ -3,7 +3,7 @@
     [TestClass]
     public class EquipoTests
     {
-        [TestMethod]
+        [TestMethod, Timeout(5000)]
         [DataRow("Equipo1", 0, 0, 3, 4, 5)]
         [DataRow("Equipo2", 1, 1, 1, 0, 0)]
         [DataRow("", 1, 2, 0, 1, 0)]
@@ -23,7 +23,7 @@
             Assert.AreEqual(golesContra, equipo.GetGolesContra(), "Los goles en contra del equipo no coinciden");
         }
 
-        [TestMethod]
+        [TestMethod, Timeout(5000)]
         [ExpectedException(typeof(Exception))]
         [DataRow("", 10, 0, 0, 0, 0)]
         [DataRow("", -10, 0, 0, 0, 0)]
