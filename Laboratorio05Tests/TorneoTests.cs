@@ -1,4 +1,6 @@
 ﻿using Laboratorio05;
+using Moq;
+
 
 namespace Laboratorio05Tests
 {
@@ -50,15 +52,16 @@ namespace Laboratorio05Tests
         [DataRow(7, "Si el total de equipos no es una potencia de 2, debe lanzar una excepcion")]
         [DataRow(15, "Si el total de equipos no es una potencia de 2, debe lanzar una excepcion")]
         [DataRow(13, "Si el total de equipos no es una potencia de 2, debe lanzar una excepcion")]
-        [DataRow(1020, "Si el total de equipos no es una potencia de 2, debe lanzar una excepcion")]
+        [DataRow(1000, "Si el total de equipos no es una potencia de 2, debe lanzar una excepcion")]
         public void TorneosNoValidosTest(int cantidadEquipos, string message)
         {
             Equipo[] equipos = new Equipo[cantidadEquipos];
-            
+
             Torneo.SimularTorneo(equipos);
 
             TestContext.WriteLine(message);
         }
+
 
         public static IEnumerable<object[]> GetSimpleTestData()
         {
