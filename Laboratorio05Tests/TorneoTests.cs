@@ -1,4 +1,6 @@
 ﻿using Laboratorio05;
+using Moq;
+
 
 namespace Laboratorio05Tests
 {
@@ -33,7 +35,8 @@ namespace Laboratorio05Tests
 
             for (int i = 0; i < result.GetLength(0); i++)
             {
-                for (int j = 0; j < result[i].Length; i++)
+                for (int j = 0; j < result[i].Length; j++)
+
                 {
                     Assert.AreEqual(dictionary[nombreEsperados[i][j]], result[i][j], $"Error en la fase {i}, el equipo en la posicion {j} no es el esperado.");
                 }
@@ -49,15 +52,16 @@ namespace Laboratorio05Tests
         [DataRow(7, "Si el total de equipos no es una potencia de 2, debe lanzar una excepcion")]
         [DataRow(15, "Si el total de equipos no es una potencia de 2, debe lanzar una excepcion")]
         [DataRow(13, "Si el total de equipos no es una potencia de 2, debe lanzar una excepcion")]
-        [DataRow(int.MaxValue, "Si el total de equipos no es una potencia de 2, debe lanzar una excepcion")]
+        [DataRow(1000, "Si el total de equipos no es una potencia de 2, debe lanzar una excepcion")]
         public void TorneosNoValidosTest(int cantidadEquipos, string message)
         {
             Equipo[] equipos = new Equipo[cantidadEquipos];
-            
+
             Torneo.SimularTorneo(equipos);
 
             TestContext.WriteLine(message);
         }
+
 
         public static IEnumerable<object[]> GetSimpleTestData()
         {
