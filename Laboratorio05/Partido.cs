@@ -15,7 +15,9 @@ namespace Laboratorio05
 
         public Partido(Equipo equipo1, Equipo equipo2)
         {
-            
+            this.equipo1 = equipo1;
+            this.equipo2 = equipo2;
+            this.ganador = null;
         }
 
         public Equipo GetEquipo1()
@@ -30,7 +32,38 @@ namespace Laboratorio05
 
         public Equipo SeleccionarEquipoGanador()
         {
-            return null;
+            if (ganador != null)
+            {
+                return ganador;
+            }
+
+            double puntajeEquipo1, puntajeEquipo2;
+
+            do
+            {
+                puntajeEquipo1 = GetPuntajeEquipo(equipo1);
+                puntajeEquipo2 = GetPuntajeEquipo(equipo2);
+            } while (puntajeEquipo1 == puntajeEquipo2);
+
+            if (puntajeEquipo1 > puntajeEquipo2)
+            {
+                ganador = equipo1;
+            }
+            else
+            {
+                ganador = equipo2;
+            }
+
+            return ganador;
+        }
+
+        private double GetPuntajeEquipo(Equipo equipo)
+        {
+            double resultado = (equipo.GetPartidosGanados() * 0.7 + equipo.GetPartidosPerdidos() * 0.1 + equipo.GetPartidosEmpatados() * 0.2) / (equipo.GetGolesFavor() - equipo.GetGolesContra() + 0.001);
+
+            double x = IRandomGenerator.RandomGenerator.Next();
+
+            return x * resultado;
         }
     }
 }
